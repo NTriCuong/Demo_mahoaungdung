@@ -1,6 +1,7 @@
 
 package com.mycompany.projectmahoa.view;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -9,30 +10,40 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.awt.Insets;
 
-/**
- *
- * @author nguyentricuong
- */
+import com.mycompany.projectmahoa.controller.MainController;
+
 public class MainWindow extends JFrame {
     private final Font font=new Font("Arial", Font.PLAIN, 14);
-    private final  JLabel lb_header=new JLabel("Ceaser");
+    private final  JLabel lb_header=new JLabel("CEASER");
     //panel
     private final JPanel header = new JPanel();
     private final JPanel container=new JPanel();
     private final JPanel sidebar=new JPanel();
     private final JPanel content=new JPanel();
     private final JPanel mainboxleft=new JPanel();
+    private final JPanel boxtop = new JPanel();
+    private final JPanel boxbuttom =new JPanel();
+    private final JPanel boxbottom_labelandkey =new JPanel();
+    private final JPanel boxtop_labelandkey =new JPanel();
+
+    //JTextField
+    private final JTextField textboxtop = new JTextField(3);
+    private final JTextField textboxbottom = new JTextField(3);
+    // actionlistener
+    private final MainController action = new MainController(this);
    
 
 
 
     public MainWindow(){
         super();
+        this.lb_header.setFont(new Font("Arial",Font.BOLD, 25));
         this.setTitle("Demo Mã Hoá");
         this.setFont(font);
         this.setLayout(new BorderLayout());//flow layout xuat hien tuan tu
-        this.setSize(700, 300);
+        this.setSize(800, 400);
         this.setLocationRelativeTo(null);// cữa sổ xuất hiện ở giữa
         this.ComponentHeader();
         this.ComponentContainer();
@@ -72,6 +83,12 @@ public class MainWindow extends JFrame {
         JButton btn_Bcd = new JButton("Bảng chữ đơn");
         JButton btn_PlayFair = new JButton("Playfair");
         JButton btn_Cdd = new JButton("Chuyển dịch dòng");
+        //action
+        btn_Ceaser.addActionListener(action);
+        btn_Vegenere.addActionListener(action);
+        btn_Bcd.addActionListener(action);
+        btn_PlayFair.addActionListener(action);
+        btn_Cdd.addActionListener(action);
         
         this.sidebar.setLayout(new GridLayout(5,1,10,10));
         this.sidebar.add(btn_Ceaser);
@@ -89,18 +106,29 @@ public class MainWindow extends JFrame {
         boxplanttext.setLayout(new GridLayout(2,1));
         
         JLabel labelInput = new JLabel("Plant text");
-        JTextArea areaInput = new JTextArea(5,20);
+        JTextArea areaPlantText = new JTextArea(5,20);
+        // Thiết lập tự động xuống dòng khi nội dung quá dài
+        areaPlantText.setLineWrap(true); // Cho phép tự động xuống dòng
+        areaPlantText.setWrapStyleWord(true); // Xuống dòng tại từ, không cắt từ
+        // Thiết lập khoảng cách (padding) giữa văn bản và các cạnh của JTextArea
+        areaPlantText.setMargin(new Insets(5, 10, 5, 5)); // Trên, trái, dưới, phải
+        // insets la class duoc thiet lap de can chinh khoan cach le
+
         boxplanttext.add(labelInput);
-        boxplanttext.add(areaInput);
+        boxplanttext.add(areaPlantText);
         this.content.add(boxplanttext);
         
         JPanel boxciphertext = new JPanel();
         boxciphertext.setLayout(new GridLayout(2,1));
 
         JLabel labelOutput = new JLabel("Ciphertext");
-        JTextArea areaOutput = new JTextArea(5,20);
+        JTextArea areaCiphertext = new JTextArea(5,20);
+
+        areaCiphertext.setLineWrap(true); 
+        areaCiphertext.setWrapStyleWord(true);
+
         boxciphertext.add(labelOutput);
-        boxciphertext.add(areaOutput);
+        boxciphertext.add(areaCiphertext);
         this.content.add(boxciphertext);
         
     }
@@ -108,47 +136,51 @@ public class MainWindow extends JFrame {
     private void ComponentBoxLeft(){
         this.mainboxleft.setLayout(new GridLayout(2,1,0,50));
         //top
-        JPanel boxtop = new JPanel();
-        boxtop.setLayout(new GridLayout(2,1));
+        this.boxtop.setLayout(new GridLayout(2,1));
         
         JLabel labeltextbox = new JLabel("Key");
         
-        JTextField textboxtop = new JTextField(3);
         JButton btn_enctyption = new JButton("Enctyption");
+        btn_enctyption.addActionListener(action);
         JPanel boxbtnEnc = new JPanel();
         boxbtnEnc.add(btn_enctyption);
         
-        JPanel boxtop_labelandkey =new JPanel();
         
-        boxtop_labelandkey.add(labeltextbox);
-        boxtop_labelandkey.add(textboxtop);
-        boxtop.add(boxtop_labelandkey);
-        boxtop.add(boxbtnEnc);
+        this.boxtop_labelandkey.add(labeltextbox);
+        this.boxtop_labelandkey.add(this.textboxtop);
+        this.boxtop.add(this.boxtop_labelandkey);
+        this.boxtop.add(boxbtnEnc);
         
-        mainboxleft.add(boxtop);
+        this.mainboxleft.add(boxtop);
         
        //bottom
-       JPanel boxbuttom = new JPanel();
-       boxbuttom.setLayout(new GridLayout(2,1));
+        this.boxbuttom.setLayout(new GridLayout(2,1));
        
-       JLabel labeltextboxbottom = new JLabel("Key");
+        JLabel labeltextboxbottom = new JLabel("Key");
         
-        JTextField textboxbottom = new JTextField(3);
         JButton btn_Dectyption = new JButton("Dectyption");
+        btn_Dectyption.addActionListener(action); // add action
         JPanel boxbntDec = new JPanel();
         boxbntDec.add(btn_Dectyption);
         
-        JPanel boxbottom_labelandkey =new JPanel();
-        boxbottom_labelandkey.add(labeltextboxbottom);
-        boxbottom_labelandkey.add(textboxbottom);
+        this.boxbottom_labelandkey.add(labeltextboxbottom);
+        this.boxbottom_labelandkey.add(this.textboxbottom);
         
-        boxbuttom.add(boxbottom_labelandkey);
-        boxbuttom.add(boxbntDec);
+        this.boxbuttom.add(this.boxbottom_labelandkey);
+        this.boxbuttom.add(boxbntDec);
         
-        mainboxleft.add(boxbuttom);
-        
-        
+        this.mainboxleft.add(boxbuttom);
         //add vào cữa sổ
+    }
+    public void handlePlayfair(String key, boolean flag){
+        this.lb_header.setText(key);
+        if(flag){
+            this.boxtop_labelandkey.setLayout(new GridLayout(2,1));
+            this.boxbottom_labelandkey.setLayout(new GridLayout(2,1));
+        }else{
+            this.boxtop_labelandkey.setLayout(new FlowLayout());
+            this.boxbottom_labelandkey.setLayout(new FlowLayout());
+        }
     }
     //show
     public void init(){

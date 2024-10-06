@@ -4,21 +4,18 @@
  */
 package com.mycompany.projectmahoa.controller;
 
-import com.mycompany.projectmahoa.view.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author nguyentricuong
- */
+import com.mycompany.projectmahoa.view.MainWindow;
+
+
 // cách khởi kế thừa và khởi tạo hàm ActionListener trong java
 public class MainController implements ActionListener {
-    private final MainWindow window;//cửa sổ JFrame
+    public MainWindow window;
     //contructor
-    //nhận vào 1 parameters là 1 cửa sổ JFrame chịu sự quản lí của ActionListener
-    public MainController(MainWindow window){//
-        this.window = window;
+    public MainController( MainWindow mainWindow){
+        this.window = mainWindow;
     }
     //action perfom nhận vào 1 event
     @Override
@@ -26,8 +23,18 @@ public class MainController implements ActionListener {
         //sử dụng menthod getActionCommand để
         //lấy được tên của nút vừa được nhấn 
         String src = e.getActionCommand();
-        System.out.print("::::::::::"+src);
-        
+        if (src.equals("Playfair")){
+            window.handlePlayfair(src.toUpperCase(),true);
+        }else if (src.equals("Ceaser")) {
+            window.handlePlayfair(src.toUpperCase(),false);
+        }else if (src.equals("Vegenre")) {
+            window.handlePlayfair(src.toUpperCase(),true);
+        }else if (src.equals("Bảng chữ đơn")) {
+            window.handlePlayfair(src.toUpperCase(),true);
+        }else if (src.equals("Chuyển dịch dòng")) {
+            window.handlePlayfair(src.toUpperCase(),true);
+        }
+
     }
     
 }

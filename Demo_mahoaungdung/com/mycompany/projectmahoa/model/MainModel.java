@@ -4,10 +4,7 @@
  */
 package com.mycompany.projectmahoa.model;
 
-/**
- *
- * @author nguyentricuong
- */
+
 public class MainModel {
     
 }
