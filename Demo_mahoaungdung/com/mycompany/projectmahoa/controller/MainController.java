@@ -59,6 +59,21 @@ public class MainController implements ActionListener {
             //     cipherText = model.EncryptionTransposition(move.doctument, move.key);
             //     window.DisplayResuil(cipherText,true);
             // }
+        }else if(src.equals("Dectyption"))
+        {
+            Move move = window.handleEnctytion();
+            String cipherText = new String();
+            if(move.cipher.equals( "VEGENRE")){
+                cipherText = model.DecryptionVinegere(move.document, move.key);
+                window.DisplayResuil(cipherText,true);
+            }else if(move.cipher.equals( "CHUYỂN DỊCH DÒNG")){
+                cipherText = model.DecryptionTransposition(move.document, move.key);
+                window.DisplayResuil(cipherText,true);
+            }else if(move.cipher.equals( "CEASAR")){
+                int key =Integer.parseInt(move.key);
+                cipherText = model.DecryptionCeaser(move.document,key);
+                window.DisplayResuil(cipherText,true);
+            }
         }
     }
     

@@ -57,8 +57,6 @@ public class TranspositionCipher {
             for(int j=0;j<arrCipher[i].length;j++){
                 if(index<plantText.length())
                     arrCipher[i][j]=plantText.charAt(index++);
-                else
-                    arrCipher[i][j]='_';// các kí tự cuối cùng sẻ là "_"
             }
         // xử lý key
         int[] keyConvert =new int[key.length()];//convert lai key từ kí tự thành mã ascii
@@ -89,12 +87,14 @@ public class TranspositionCipher {
     }
     //giải mã
     public String Decryption(String cipherText, String key){
-        if(cipherText == null || cipherText.isEmpty())
+
+        if(cipherText.isEmpty() || cipherText==null)
             return "";
         char[][] arrCipher= new char[cipherText.length()/key.length()][key.length()];
         int index=0;
-        for(int col=0;col<arrCipher.length;col++)
-            for(int row=0;row<arrCipher[col].length;row++){
+
+        for(int col=0;col<arrCipher[0].length;col++)
+            for(int row=0;row<arrCipher.length;row++){
                 arrCipher[row][col] = cipherText.charAt(index++);
             }
         // convert key
@@ -107,14 +107,27 @@ public class TranspositionCipher {
         //xử lý vị trí duyệt
 
         itemArr[] order = new itemArr[key.length()];//lưu thứ tự duyệt
+
         order=this.BubbleSort(keyConvert);
+        System.out.println("key::::::");
+        for(int i=0;i<order.length;i++){
+            System.out.println(order[i].data+":"+order[i].index);
+        }
+        for(int i=0;i<arrCipher.length;i++){
+        System.out.println("ma tran::::::");
+
+            for(int j=0;j<arrCipher[i].length;j++){
+                System.out.println(arrCipher[i]);
+            }
+            System.out.println();
+        }
 
         // xử lý đưa về plant text
         char[][] arrPlantText = new char[arrCipher.length][arrCipher[0].length];
-        for(int i=0;i<order.length;i++)
+        for(int i=0;i<arrPlantText[0].length;i++)
         {
             int col = order[i].index;
-            for(int row=0;row<arrPlantText[i].length;row++){
+            for(int row=0;row<arrPlantText.length;row++){
                 arrPlantText[row][col]=arrCipher[row][i];
             }
         }

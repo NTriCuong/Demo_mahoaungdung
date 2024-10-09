@@ -1,5 +1,7 @@
 package com.mycompany.projectmahoa.model.banchudon;
 
+import java.util.HashMap;
+
 public class ChuDon
 {
     // khởi tạo lưu trữ bảng mã hóa

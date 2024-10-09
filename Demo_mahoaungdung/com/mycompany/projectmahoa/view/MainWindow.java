@@ -33,7 +33,7 @@ public class MainWindow extends JFrame {
     //JTextField
     //key
     private final JTextField textboxtop = new JTextField(3);
-    private final JTextField textboxbottom = new JTextField(3);
+    // private final JTextField textboxbottom = new JTextField(3);
     // actionlistener
     private final MainController action = new MainController(this);
     // JTextarea planttext & ciphertext
@@ -112,7 +112,7 @@ public class MainWindow extends JFrame {
         JPanel boxplanttext = new JPanel();
         boxplanttext.setLayout(new GridLayout(2,1));
         
-        JLabel labelInput = new JLabel("Plant text");
+        JLabel labelInput = new JLabel("Document");
         
         // Thiết lập tự động xuống dòng khi nội dung quá dài
         this.areaPlantText.setLineWrap(true); // Cho phép tự động xuống dòng
@@ -128,7 +128,7 @@ public class MainWindow extends JFrame {
         JPanel boxciphertext = new JPanel();
         boxciphertext.setLayout(new GridLayout(2,1));
         this.areaCiphertext.setMargin(new Insets(5, 10, 5, 5));
-        JLabel labelOutput = new JLabel("Ciphertext");
+        JLabel labelOutput = new JLabel("Resuil");
 
         this.areaCiphertext.setLineWrap(true); 
         this.areaCiphertext.setWrapStyleWord(true);
@@ -142,7 +142,7 @@ public class MainWindow extends JFrame {
     private void ComponentBoxLeft(){
         this.mainboxleft.setLayout(new GridLayout(2,1,0,50));
         //top
-        this.boxtop.setLayout(new GridLayout(2,1));
+        this.boxtop.setLayout(new GridLayout(3,1));
         
         JLabel labeltextbox = new JLabel("Key");
         
@@ -162,18 +162,18 @@ public class MainWindow extends JFrame {
        //bottom
         this.boxbuttom.setLayout(new GridLayout(2,1));
        
-        JLabel labeltextboxbottom = new JLabel("Key");
+        // JLabel labeltextboxbottom = new JLabel("Key");
         
         JButton btn_Dectyption = new JButton("Dectyption");
         btn_Dectyption.addActionListener(action); // add action
         JPanel boxbntDec = new JPanel();
         boxbntDec.add(btn_Dectyption);
         
-        this.boxbottom_labelandkey.add(labeltextboxbottom);
-        this.boxbottom_labelandkey.add(this.textboxbottom);
+        // this.boxbottom_labelandkey.add(labeltextboxbottom);
+        // this.boxbottom_labelandkey.add(this.textboxbottom);
         
         this.boxbuttom.add(this.boxbottom_labelandkey);
-        this.boxbuttom.add(boxbntDec);
+        this.boxtop.add(boxbntDec);
         
         this.mainboxleft.add(boxbuttom);
         //add vào cữa sổ

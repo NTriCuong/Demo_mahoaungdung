@@ -39,7 +39,7 @@ public class Vinegere {
                 // cộng thêm 26 để đảm bảo không bị âm vd 
                 // vd phép toán ra -5 thì mod26 -5 chính là 21
                 // -5+26=21 % 26 = 21 
-                char resuil = (char)((character -'A' - key.charAt(j)-'A'+26 )%26 + 'A');
+                char resuil = (char)((((character -'A') - (key.charAt(j)-'A')+26 )%26 + 'A'));
                 plantText.append(resuil);
                 j= (j+1)%key.length();
             }
