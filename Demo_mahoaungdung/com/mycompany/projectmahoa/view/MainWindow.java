@@ -14,9 +14,11 @@ import java.awt.Insets;
 
 import com.mycompany.projectmahoa.controller.MainController;
 
+import phuongthucdichuyen.Move;
+
 public class MainWindow extends JFrame {
     private final Font font=new Font("Arial", Font.PLAIN, 14);
-    private final  JLabel lb_header=new JLabel("CEASER");
+    private final  JLabel lb_header=new JLabel("CEASAR");
     //panel
     private final JPanel header = new JPanel();
     private final JPanel container=new JPanel();
@@ -29,11 +31,15 @@ public class MainWindow extends JFrame {
     private final JPanel boxtop_labelandkey =new JPanel();
 
     //JTextField
+    //key
     private final JTextField textboxtop = new JTextField(3);
     private final JTextField textboxbottom = new JTextField(3);
     // actionlistener
     private final MainController action = new MainController(this);
-   
+    // JTextarea planttext & ciphertext
+    private final JTextArea areaPlantText =new JTextArea(5,20);
+    private final JTextArea areaCiphertext = new JTextArea(5,20);
+    
 
 
 
@@ -78,7 +84,7 @@ public class MainWindow extends JFrame {
     // sidebar
     private void ComponentSidebar(){
          //btn
-        JButton btn_Ceaser = new JButton("Ceaser");
+        JButton btn_Ceaser = new JButton("Ceasar");
         JButton btn_Vegenere = new JButton("Vegenre");
         JButton btn_Bcd = new JButton("Bảng chữ đơn");
         JButton btn_PlayFair = new JButton("Playfair");
@@ -100,35 +106,35 @@ public class MainWindow extends JFrame {
     //content
     private void ComponentContent(){
         this.content.setLayout(new GridLayout(2,1,0,20));
+
         // cac thanh phan
         
         JPanel boxplanttext = new JPanel();
         boxplanttext.setLayout(new GridLayout(2,1));
         
         JLabel labelInput = new JLabel("Plant text");
-        JTextArea areaPlantText = new JTextArea(5,20);
+        
         // Thiết lập tự động xuống dòng khi nội dung quá dài
-        areaPlantText.setLineWrap(true); // Cho phép tự động xuống dòng
-        areaPlantText.setWrapStyleWord(true); // Xuống dòng tại từ, không cắt từ
+        this.areaPlantText.setLineWrap(true); // Cho phép tự động xuống dòng
+        this.areaPlantText.setWrapStyleWord(true); // Xuống dòng tại từ, không cắt từ
         // Thiết lập khoảng cách (padding) giữa văn bản và các cạnh của JTextArea
-        areaPlantText.setMargin(new Insets(5, 10, 5, 5)); // Trên, trái, dưới, phải
+        this.areaPlantText.setMargin(new Insets(5, 10, 5, 5)); // Trên, trái, dưới, phải
         // insets la class duoc thiet lap de can chinh khoan cach le
 
         boxplanttext.add(labelInput);
-        boxplanttext.add(areaPlantText);
+        boxplanttext.add(this.areaPlantText);
         this.content.add(boxplanttext);
         
         JPanel boxciphertext = new JPanel();
         boxciphertext.setLayout(new GridLayout(2,1));
-
+        this.areaCiphertext.setMargin(new Insets(5, 10, 5, 5));
         JLabel labelOutput = new JLabel("Ciphertext");
-        JTextArea areaCiphertext = new JTextArea(5,20);
 
-        areaCiphertext.setLineWrap(true); 
-        areaCiphertext.setWrapStyleWord(true);
+        this.areaCiphertext.setLineWrap(true); 
+        this.areaCiphertext.setWrapStyleWord(true);
 
         boxciphertext.add(labelOutput);
-        boxciphertext.add(areaCiphertext);
+        boxciphertext.add(this.areaCiphertext);
         this.content.add(boxciphertext);
         
     }
@@ -172,7 +178,8 @@ public class MainWindow extends JFrame {
         this.mainboxleft.add(boxbuttom);
         //add vào cữa sổ
     }
-    public void handlePlayfair(String key, boolean flag){
+    // nhấn nút ở sidebar
+    public void handleBtnSidebar(String key, boolean flag){
         this.lb_header.setText(key);
         if(flag){
             this.boxtop_labelandkey.setLayout(new GridLayout(2,1));
@@ -181,6 +188,21 @@ public class MainWindow extends JFrame {
             this.boxtop_labelandkey.setLayout(new FlowLayout());
             this.boxbottom_labelandkey.setLayout(new FlowLayout());
         }
+    }
+    // nhấn nút mã hoá/giải mã
+    public Move handleEnctytion(){
+        return new Move(this.areaPlantText.getText(),this.textboxtop.getText(),this.lb_header.getText());
+    }
+    public Move handleDecryption(){
+        return new Move(this.areaPlantText.getText(),this.areaCiphertext.getText(),this.lb_header.getText());
+    
+    }
+    public void DisplayResuil(String document, boolean flag){
+        // flag true là đang mã hoá nên hiển thị ở ô ciphertext và ngược lại
+        if(flag)
+            areaCiphertext.setText(document);
+        else
+            areaPlantText.setText(document);
     }
     //show
     public void init(){
