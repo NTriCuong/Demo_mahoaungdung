@@ -7,7 +7,8 @@ package com.mycompany.projectmahoa.model;
 import com.mycompany.projectmahoa.model.ceasar.Ceasar;
 import com.mycompany.projectmahoa.model.chuyendichdong.TranspositionCipher;
 import com.mycompany.projectmahoa.model.venegere.Vinegere;
-
+import com.mycompany.projectmahoa.model.banchudon.BanChuDon;
+import com.mycompany.projectmahoa.model.playfair.Playfair;
 public class MainModel {
     //mã hoá Vinegere
     public String EncryptionVinegere(String document, String key){
@@ -37,4 +38,24 @@ public class MainModel {
     public String DecryptionCeaser(String document, int key){
         return Ceasar.GiaiMa(document, key);
     }
+    // bản chữ đơn 
+    public String EncryptionChuDon(String document, String key){
+        return BanChuDon.MaHoa(document, key);
+    }
+    //giai ma
+    public String DecryptionChuDon(String document, String key){
+        return BanChuDon.GiaiMa(document,key);
+    }
+    //playfair
+    public String EncryptionPlayfair(String document, String key){
+        Playfair playfair=new Playfair();
+        return playfair.mh(document, key);
+    }
+    //giai ma
+    public String DecryptionPlayfair(String document, String key){
+        Playfair playfair=new Playfair();
+        return playfair.giaiMa(document, key);
+    }
+
+
 }

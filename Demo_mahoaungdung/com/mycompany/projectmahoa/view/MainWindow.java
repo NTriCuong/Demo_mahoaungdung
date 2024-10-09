@@ -197,12 +197,9 @@ public class MainWindow extends JFrame {
         return new Move(this.areaPlantText.getText(),this.areaCiphertext.getText(),this.lb_header.getText());
     
     }
-    public void DisplayResuil(String document, boolean flag){
+    public void DisplayResuil(String document){
         // flag true là đang mã hoá nên hiển thị ở ô ciphertext và ngược lại
-        if(flag)
             areaCiphertext.setText(document);
-        else
-            areaPlantText.setText(document);
     }
     //show
     public void init(){

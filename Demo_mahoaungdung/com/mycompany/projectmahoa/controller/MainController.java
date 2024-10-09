@@ -44,35 +44,41 @@ public class MainController implements ActionListener {
             String cipherText = new String();
             if(move.cipher.equals( "VEGENRE")){
                 cipherText = model.EncryptionVinegere(move.document, move.key);
-                window.DisplayResuil(cipherText,true);
+                window.DisplayResuil(cipherText);
             }else if(move.cipher.equals( "CHUYỂN DỊCH DÒNG")){
                 cipherText = model.EncryptionTransposition(move.document, move.key);
-                window.DisplayResuil(cipherText,true);
+                window.DisplayResuil(cipherText);
             }else if(move.cipher.equals( "CEASAR")){
                 cipherText = model.EncryptionCeaser(move.document, Integer.parseInt(move.key));
-                window.DisplayResuil(cipherText,true);
+                window.DisplayResuil(cipherText);
             }
-            //else if(move.cipher.equals( "BẢN CHỮ ĐƠN")){
-            //     cipherText = model.EncryptionTransposition(move.document, move.key);
-            //     window.DisplayResuil(cipherText,true);
-            // }else if(move.cipher.equals( "PLAYFAIR")){
-            //     cipherText = model.EncryptionTransposition(move.doctument, move.key);
-            //     window.DisplayResuil(cipherText,true);
-            // }
+            else if(move.cipher.equals( "BẢNG CHỮ ĐƠN")){
+                cipherText = model.EncryptionChuDon(move.document, move.key);
+                window.DisplayResuil(cipherText);
+            }else if(move.cipher.equals( "PLAYFAIR")){
+                cipherText = model.EncryptionPlayfair(move.document, move.key);
+                window.DisplayResuil(cipherText);
+            }
         }else if(src.equals("Dectyption"))
         {
             Move move = window.handleEnctytion();
-            String cipherText = new String();
+            String plantText = new String();
             if(move.cipher.equals( "VEGENRE")){
-                cipherText = model.DecryptionVinegere(move.document, move.key);
-                window.DisplayResuil(cipherText,true);
+                plantText = model.DecryptionVinegere(move.document, move.key);
+                window.DisplayResuil(plantText);
             }else if(move.cipher.equals( "CHUYỂN DỊCH DÒNG")){
-                cipherText = model.DecryptionTransposition(move.document, move.key);
-                window.DisplayResuil(cipherText,true);
+                plantText = model.DecryptionTransposition(move.document, move.key);
+                window.DisplayResuil(plantText);
             }else if(move.cipher.equals( "CEASAR")){
                 int key =Integer.parseInt(move.key);
-                cipherText = model.DecryptionCeaser(move.document,key);
-                window.DisplayResuil(cipherText,true);
+                plantText = model.DecryptionCeaser(move.document,key);
+                window.DisplayResuil(plantText);
+            }else if(move.cipher.equals( "BẢNG CHỮ ĐƠN")){
+                plantText = model.DecryptionChuDon(move.document, move.key);
+                window.DisplayResuil(plantText);
+            }else if(move.cipher.equals( "PLAYFAIR")){
+                plantText = model.DecryptionPlayfair(move.document, move.key);
+                window.DisplayResuil(plantText);
             }
         }
     }

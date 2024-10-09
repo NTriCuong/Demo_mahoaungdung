@@ -57,6 +57,9 @@ public class TranspositionCipher {
             for(int j=0;j<arrCipher[i].length;j++){
                 if(index<plantText.length())
                     arrCipher[i][j]=plantText.charAt(index++);
+                else 
+                    arrCipher[i][j]='z';
+
             }
         // xử lý key
         int[] keyConvert =new int[key.length()];//convert lai key từ kí tự thành mã ascii
