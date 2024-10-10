@@ -1,5 +1,4 @@
 package com.mycompany.projectmahoa.model.playfair;
- import java.util.LinkedHashSet;
 public class Playfair {
     public char[][] table ;// mảng 2 chiều 
     public void setKey(String key) 

@@ -112,18 +112,6 @@ public class TranspositionCipher {
         itemArr[] order = new itemArr[key.length()];//lưu thứ tự duyệt
 
         order=this.BubbleSort(keyConvert);
-        System.out.println("key::::::");
-        for(int i=0;i<order.length;i++){
-            System.out.println(order[i].data+":"+order[i].index);
-        }
-        for(int i=0;i<arrCipher.length;i++){
-        System.out.println("ma tran::::::");
-
-            for(int j=0;j<arrCipher[i].length;j++){
-                System.out.println(arrCipher[i]);
-            }
-            System.out.println();
-        }
 
         // xử lý đưa về plant text
         char[][] arrPlantText = new char[arrCipher.length][arrCipher[0].length];
