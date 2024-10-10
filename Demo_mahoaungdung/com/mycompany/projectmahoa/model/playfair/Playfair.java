@@ -1,11 +1,39 @@
 package com.mycompany.projectmahoa.model.playfair;
-
+ import java.util.LinkedHashSet;
 public class Playfair {
-    private char[][] table;// mảng 2 chiều 
+    public char[][] table ;// mảng 2 chiều 
+    public void setKey(String key) 
+    {
+        table = new char[5][5];
+        boolean[] used = new boolean[26]; // Để theo dõi ký tự đã sử dụng
+        int index = 0;
+
+        // Thêm ký tự từ khóa vào bảng
+        for (char c : key.toLowerCase().toCharArray()) {
+            if (c >= 'a' && c <= 'z' && !used[c - 'a']) {
+                if (c == 'j') {
+                    // Thay thế 'j' bằng 'i'
+                    c = 'i';
+                }
+                used[c - 'a'] = true; // Đánh dấu ký tự đã sử dụng
+                table[index / 5][index % 5] = c;
+                index++;
+            }
+        }
+
+        // Thêm các ký tự còn lại vào bảng
+        for (char c = 'a'; c <= 'z'; c++) {
+            if (c == 'j') continue; // Bỏ qua 'j'
+            if (!used[c - 'a']) {
+                table[index / 5][index % 5] = c;
+                index++;
+            }
+        }
+    }
     public String preprocess(String a) // tao chuỗi a
     {
         StringBuilder Kq = new StringBuilder(); // tạo StringBD kq
-        for (char c : a.toCharArray())  // duyệt từng ký tự của a và lưu vào c ( chuyển chuỗi thanhf mảng )
+        for (char c : a.toCharArray())  // duyệt từng ký tự của a và lưu vào c ( chuyển chuỗi thanh mảng )
         {
             if (c >= 'a' && c <= 'z') 
             {
@@ -36,6 +64,7 @@ public class Playfair {
 
     public String mh (String vb, String key) 
     {
+        setKey(key);
         String vbgm = preprocess(vb);
         StringBuilder mhd = new StringBuilder();
         for (int i = 0; i < vbgm.length(); i += 2) // chạy vòng lập 
@@ -65,7 +94,7 @@ public class Playfair {
         }
         return mhd.toString();
     }
-    private int[] getPosition(char c) { // Lấy vị trí của ký tự trong bảng
+    public int[] getPosition(char c) { // Lấy vị trí của ký tự trong bảng
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (table[i][j] == c) {
@@ -77,6 +106,7 @@ public class Playfair {
     }
     public String giaiMa(String vb, String key) {
         // Tiền xử lý chuỗi đầu vào
+        setKey(key);
         String vbgm = preprocess(vb);
         StringBuilder ghd = new StringBuilder(); // Chuỗi kết quả giải mã
     
@@ -89,22 +119,25 @@ public class Playfair {
             int[] secondPos = getPosition(second); // Lấy vị trí của ký tự thứ hai
     
             // Kiểm tra nếu cùng hàng
-            if (firstPos[0] == secondPos[0]) {
-                ghd.append(table[firstPos[0]][(firstPos[1] - 1 + 5) % 5]); // Ký tự bên trái
-                ghd.append(table[secondPos[0]][(secondPos[1] - 1 + 5) % 5]); // Ký tự bên trái
+            if (firstPos[0] == secondPos[0]) 
+            {
+                ghd.append(table[firstPos[0]][(firstPos[1] + 4 ) % 5]); // Ký tự bên trái
+                ghd.append(table[secondPos[0]][(secondPos[1] + 4 ) % 5]); // Ký tự bên trái
             } 
             // Kiểm tra nếu cùng cột
             else if (firstPos[1] == secondPos[1]) {
-                ghd.append(table[(firstPos[0] - 1 + 5) % 5][firstPos[1]]); // Ký tự bên trên
-                ghd.append(table[(secondPos[0] - 1 + 5) % 5][secondPos[1]]); // Ký tự bên trên
+                ghd.append(table[(firstPos[0] +4 ) % 5][firstPos[1]]); // Ký tự bên trên
+                ghd.append(table[(secondPos[0] +4) % 5][secondPos[1]]); // Ký tự bên trên
             } 
             // Ký tự ở vị trí khác nhau
-            else {
+            else 
+            {
                 ghd.append(table[firstPos[0]][secondPos[1]]); // Lấy ký tự theo hàng của ký tự thứ hai
                 ghd.append(table[secondPos[0]][firstPos[1]]); // Lấy ký tự theo hàng của ký tự đầu
             }
         }
         return ghd.toString(); // Trả về chuỗi giải mã
     }
+
 }
 

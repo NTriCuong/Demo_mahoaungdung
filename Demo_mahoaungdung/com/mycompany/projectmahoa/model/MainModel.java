@@ -52,7 +52,8 @@ public class MainModel {
         return playfair.mh(document, key);
     }
     //giai ma
-    public String DecryptionPlayfair(String document, String key){
+    public String DecryptionPlayfair(String document, String key)
+    {
         Playfair playfair=new Playfair();
         return playfair.giaiMa(document, key);
     }

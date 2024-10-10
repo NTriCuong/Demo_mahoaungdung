@@ -3,12 +3,20 @@ package com.mycompany.projectmahoa.model.banchudon;
 import java.util.HashMap;
 public class BanChuDon
 {
-
-
     // khởi tạo lưu trữ bảng mã hóa
     public static HashMap<Character, Character> BangMaHoa = new HashMap<>();
     public static  HashMap<Character, Character> BangGiaiMa = new HashMap<>();
     //Phương thức kiểm tra tính hợp lệ của khóa
+    public static void TaoKhoa(String khoa)
+    {
+        for (int i = 0; i < 26; i++) 
+        {
+            char KTgoc = (char) ('a' + i);// cộng thứ tự i vào a=61 ;
+            char KyTuKhoa = khoa.charAt(i);
+            BanChuDon.BangMaHoa.put(KTgoc, KyTuKhoa);
+            BanChuDon.BangGiaiMa.put(KyTuKhoa,KTgoc);
+        }
+    }
     public static boolean ktra(String khoa) 
     {
         if (khoa.length() != 26) 
@@ -32,28 +40,26 @@ public class BanChuDon
         }
         return true;
     }
-
     // Phương thức mã hóa
-    public static String MaHoa(String x, String key) 
-    {
-        System.out.println("check::::"+x);
-        System.out.println("check:::"+key);   
-        StringBuilder Kq = new StringBuilder();// xây dựng khóa 
-        for (char c : x.toCharArray()) // duyệt 
+    public static String MaHoa(String x, String key) {
+        if (!ktra(key)) 
         {
-            char lowerChar = Character.toLowerCase(c); // định dạng 
-            if (BanChuDon.BangMaHoa.containsKey(lowerChar)) 
-            {
-                char dinhdang = BanChuDon.BangMaHoa.get(lowerChar);
-                Kq.append(Character.isUpperCase(c) ? Character.toUpperCase(dinhdang) : dinhdang);
-            } 
-            else 
-            {
-                Kq.append(c); 
+            throw new IllegalArgumentException("Khóa không hợp lệ");
+        }
+        TaoKhoa(key); // Tạo bảng mã hóa từ khóa
+        StringBuilder Kq = new StringBuilder(); // Chuỗi kết quả mã hóa
+        for (char c : x.toCharArray()) { // Duyệt qua từng ký tự
+            char lowerChar = Character.toLowerCase(c); // Chuyển ký tự thành chữ thường
+            if (BangMaHoa.containsKey(lowerChar)) {
+                char dinhdang = BangMaHoa.get(lowerChar); // Mã hóa ký tự
+                Kq.append(Character.isUpperCase(c) ? Character.toUpperCase(dinhdang) : dinhdang); // Giữ nguyên kiểu chữ
+            } else {
+                Kq.append(c); // Giữ nguyên ký tự không phải chữ cái
             }
         }
-        return Kq.toString();
+        return Kq.toString(); // Trả về chuỗi đã mã hóa
     }
+
     public static String GiaiMa(String x, String key) {
         StringBuilder Kq = new StringBuilder();
         for (char c : x.toCharArray()) {
@@ -66,15 +72,5 @@ public class BanChuDon
             }
         }
         return Kq.toString();
-    }
-    public static void TaoKhoa(String khoa)
-    {
-        for (int i = 0; i < 26; i++) 
-        {
-            char KTgoc = (char) ('a' + i);// cộng thứ tự i vào a=61 ;
-            char KyTuKhoa = khoa.charAt(i);
-            BanChuDon.BangMaHoa.put(KTgoc, KyTuKhoa);
-            BanChuDon.BangGiaiMa.put(KyTuKhoa,KTgoc);
-        }
     }
 }
